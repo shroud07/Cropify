@@ -71,6 +71,7 @@ conda create -n cropify python=3.6.12
 conda activate cropify
 pip install -r requirements.txt
 python app.py
+```
 
 Once the server starts successfully, open the generated localhost URL in your browser to access the CropEase platform and explore its intelligent agricultural solutions.
 
