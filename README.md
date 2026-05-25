@@ -163,7 +163,7 @@ The current version of Cropify provides a strong foundation for AI-powered smart
 
 This project was developed as part of an effort to leverage Artificial Intelligence and Machine Learning for modern agriculture. Special thanks to:
 
-* ⭐ **Harvestify by Gladiator07** for inspiration and reference architecture.
+* ⭐ **Harvestify by Gladiator07** for inspiration and reference architecture. [HERE](https://github.com/Gladiator07/Harvestify)
 * 🎓 **Krish Naik** for educational resources and machine learning guidance.
 * 🌐 **OpenWeatherMap API** for real-time weather information.
 * 🧠 **The open-source community** for providing datasets, frameworks, and development tools that made this project possible.
