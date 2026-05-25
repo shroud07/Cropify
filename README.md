@@ -1,143 +1,147 @@
-# HARVESTIFY 🌿
-#### A simple ML and DL based website which recommends the best crop to grow, fertilizers to use and the diseases caught by your crops.
+<div align="center">
+  
+# 🌱 CROPIFY
+**An Intelligent, AI-Powered Agricultural Advisory Platform**
 
-#### This project is featured on [Krish Naik's](https://www.youtube.com/channel/UCNU_lfiiWBdtULKOw6X0Dig) YouTube Channel => Check it out [here](https://www.youtube.com/watch?v=zJcSod-L-Ps)
+[![Python](https://img.shields.io/badge/Python-3.6+-blue.svg?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-black?style=flat-square&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![Scikit-Learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=flat-square&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
 
-## DISCLAIMER ⚠️
-This is a POC(Proof of concept) kind-of project. The data used here comes up with no guarantee from the creator. So, don't use it for making farming decisions. If you do so, the creator is not responsible for anything. However, this project presents the idea that how we can use ML/DL into precision farming if developed at large scale and with authentic and verified data.
+*Empowering farmers to maximize their yield through Machine Learning and Deep Learning.*
 
-## MOTIVATION 💪
-- Farming is one of the major sectors that influences a country’s economic growth. 
+</div>
 
-- In country like India, majority of the population is dependent on agriculture for their livelihood. Many new technologies, such as Machine Learning and Deep Learning, are being implemented into agriculture so that it is easier for farmers to grow and maximize their yield. 
+---
 
-- In this project, I present a website in which the following applications are implemented; Crop recommendation, Fertilizer recommendation and Plant disease prediction, respectively. 
+## 💡 Motivation
 
-    - In the crop recommendation application, the user can provide the soil data from their side and the application will predict which crop should the user grow. 
-    
-    - For the fertilizer recommendation application, the user can input the soil data and the type of crop they are growing, and the application will predict what the soil lacks or has excess of and will recommend improvements. 
-    
-    - For the last application, that is the plant disease prediction application, the user can input an image of a diseased plant leaf, and the application will predict what disease it is and will also give a little background about the disease and suggestions to cure it.
+Agriculture is the backbone of the economy, especially in countries like India where it sustains the majority of the population. Despite its importance, many farmers still rely on traditional, intuition-based methods rather than data-driven strategies. 
 
-## DATA SOURCE 📊
-- [Crop recommendation dataset ](https://www.kaggle.com/atharvaingle/crop-recommendation-dataset) (custom built dataset)
-- [Fertilizer suggestion dataset](https://github.com/Gladiator07/Harvestify/blob/master/Data-processed/fertilizer.csv) (custom built dataset)
-- [Disease detection dataset](https://www.kaggle.com/vipoooool/new-plant-diseases-dataset)
+**Cropify** bridges the gap between traditional farming and modern artificial intelligence. By leveraging state-of-the-art Machine Learning and Deep Learning models, this platform provides actionable insights to help farmers optimize their crop selection, manage soil nutrients, and quickly identify and treat plant diseases. 
 
-## Notebooks 📓
-##### I have also published the corresponding code on Kaggle Notebooks.
-- [Crop Recommendation](https://www.kaggle.com/atharvaingle/what-crop-to-grow)
-- [Disease Detection](https://www.kaggle.com/atharvaingle/plant-disease-classification-resnet-99-2)
+---
 
-# Built with 🛠️
-<code><img height="30" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/python/python.png"></code>
-<code><img height="30" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/html/html.png"></code>
-<code><img height="30" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/css/css.png"></code>
-<code><img height="30" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png"></code>
-<code><img height="30" src="https://github.com/tomchen/stack-icons/raw/master/logos/bootstrap.svg"></code>
-<code><img height="30" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/git/git.png"></code>
-<code><img height="30" src="https://symbols.getvecta.com/stencil_80/56_flask.3a79b5a056.jpg"></code>
-<code><img height="30" src="https://cdn.iconscout.com/icon/free/png-256/heroku-225989.png"></code>
+## 🚀 Key Features
 
-<code><img height="30" src="https://raw.githubusercontent.com/numpy/numpy/7e7f4adab814b223f7f917369a72757cd28b10cb/branding/icons/numpylogo.svg"></code>
-<code><img height="30" src="https://raw.githubusercontent.com/pandas-dev/pandas/761bceb77d44aa63b71dda43ca46e8fd4b9d7422/web/pandas/static/img/pandas.svg"></code>
-<code><img height="30" src="https://matplotlib.org/_static/logo2.svg"></code>
-<code><img height="30" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Scikit_learn_logo_small.svg/1280px-Scikit_learn_logo_small.svg.png"></code>
-<code><img height="30" src="https://raw.githubusercontent.com/pytorch/pytorch/39fa0b5d0a3b966a50dcd90b26e6c36942705d6d/docs/source/_static/img/pytorch-logo-dark.svg"></code>
+### 🌾 1. Crop Recommendation Engine
+Takes the guesswork out of farming. By analyzing soil parameters (Nitrogen, Phosphorous, Potassium, pH) and real-time weather data (temperature, humidity, rainfall) based on the user's location, the system recommends the most profitable and suitable crop to cultivate.
 
-## DEPLOYMENT 🚀
+### 🧪 2. Fertilizer Suggestion System
+A diagnostic tool for your soil. Users input their soil's current nutrient levels and their target crop. The algorithm evaluates the data to identify nutrient deficiencies or excesses, providing specific, actionable advice on which fertilizers to apply for optimal growth.
 
-#### Deployment is done using [deploy](https://github.com/Gladiator07/Harvestify/tree/deploy) branch
-#### This website is deployed at [Heroku](https://www.heroku.com/)
-#### You can access it [here](https://harvestify.herokuapp.com/)
-#### Note: The website may take a minute to load sometimes, as the server may be in hibernate state
+### 🐛 3. Plant Disease Detection (Deep Learning)
+An instant, vision-based diagnostic tool. Users simply upload a clear image of a plant leaf. The underlying neural network identifies whether the plant is healthy or diseased. If a disease is detected, the system provides a brief background on the pathogen and actionable steps to cure it.
+*(Currently supports 14 different crops including Apple, Corn, Grape, Potato, Tomato, and more).*
 
-## How to use 💻
-- Crop Recommendation system ==> enter the corresponding nutrient values of your soil, state and city. Note that, the N-P-K (Nitrogen-Phosphorous-Pottasium) values to be entered should be the ratio between them. Refer [this website](https://www.gardeningknowhow.com/garden-how-to/soil-fertilizers/fertilizer-numbers-npk.htm) for more information.
-Note: When you enter the city name, make sure to enter mostly common city names. Remote cities/towns may not be available in the [Weather API](https://openweathermap.org/) from where humidity, temperature data is fetched.
+---
 
-- Fertilizer suggestion system ==> Enter the nutrient contents of your soil and the crop you want to grow. The algorithm will tell which nutrient the soil has excess of or lacks. Accordingly, it will give suggestions for buying fertilizers.
+## 📊 Data Sources
 
-- Disease Detection System ==> Upload an image of leaf of your plant. The algorithm will tell the crop type and whether it is diseased or healthy. If it is diseased, it will tell you the cause of the disease and suggest you how to prevent/cure the disease accordingly.
-Note that, for now it only supports following crops
+The models powering Cropify were trained on robust, specialized datasets:
+* **[Crop Recommendation Dataset](https://www.kaggle.com/atharvaingle/crop-recommendation-dataset)** *(Custom built)*
+* **[Fertilizer Suggestion Dataset](https://github.com/shroud07/Cropify/blob/training/Data-raw/Fertilizer.csv)** *(Custom built)*
+* **[Plant Disease Detection Dataset](https://www.kaggle.com/vipoooool/new-plant-diseases-dataset)**
 
-<details>
-  <summary>Supported crops
-</summary>
+---
 
-- Apple
-- Blueberry
-- Cherry
-- Corn
-- Grape
-- Pepper
-- Orange
-- Peach
-- Potato
-- Soybean
-- Strawberry
-- Tomato
-- Squash
-- Raspberry
-</details>
+## 🛠️ Technology Stack
 
-## How to run locally 🛠️
-- Before the following steps make sure you have [git](https://git-scm.com/download), [Anaconda](https://www.anaconda.com/) or [miniconda](https://docs.conda.io/en/latest/miniconda.html) installed on your system
-- Clone the complete project with `git clone https://github.com/Gladiator07/Harvestify.git` or you can just download the code and unzip it
-- **Note:** The master branch doesn't have the updated code used for deployment, to download the updated code used for deployment you can use the following command
-  ```
-  ❯ git clone -b deploy https://github.com/Gladiator07/Harvestify.git 
-  ```
-- `deploy` branch has only the code required for deploying the app (rest of the code that was used for training the models, data preparation can be accessed on `master` branch)
-- It is highly recommended to clone the deploy branch for running the project locally (the further steps apply only if you have the deploy branch cloned)
-- Once the project is cloned, open anaconda prompt in the directory where the project was cloned and paste the following block
-  ```
-  conda create -n harvestify python=3.6.12
-  conda activate harvestify
-  pip install -r requirements.txt
-  ```
-- And finally run the project with
-  ```
-  python app.py
-  ```
-- Open the localhost url provided after running `app.py` and now you can use the project locally in your web browser.
-## DEMO
+**Frontend:** HTML5, CSS3, JavaScript, Tailwind CSS (Modernized)  
+**Backend:** Python, Flask  
+**Machine Learning:** Scikit-Learn, NumPy, Pandas, Matplotlib  
+**Deep Learning:** PyTorch, Torchvision  
+**APIs:** OpenWeatherMap API  
 
-- ### Crop recommendation system
+---
 
-![demo](https://media.giphy.com/media/90JbjdAa5nDq3TJh5u/giphy.gif)
+## 💻 Local Installation & Setup
 
-- ### Fertilizer suggestion system
+Follow these steps to get the project running on your local machine:
 
-![demo](https://media.giphy.com/media/FLftUXMFo8N2bBjAXq/giphy.gif)
+**1. Prerequisites**
+Ensure you have [Git](https://git-scm.com/download) and [Anaconda / Miniconda](https://docs.conda.io/en/latest/miniconda.html) installed.
 
+**2. Clone the Repository**
+```bash
+git clone [https://github.com/shroud07/Cropify.git](https://github.com/shroud07/Cropify.git)
+cd Cropify
+conda create -n cropify python=3.6.12
+conda activate cropify
+pip install -r requirements.txt
+python app.py
 
-- ### Disease Detection system
-![demo](https://media.giphy.com/media/NnMwEp2tGZdfnJbyjr/giphy.gif)
+Once the server starts successfully, open the generated localhost URL in your browser to access the CropEase platform and explore its intelligent agricultural solutions.
 
+📖 Usage Guide
+🌱 Crop Recommendation System
 
+Enter the required soil nutrient values:
 
-## Contribute 👨‍💻
-Please read [CONTRIBUTING.md](https://github.com/Gladiator07/Harvestify/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Nitrogen (N)
+Phosphorous (P)
+Potassium (K)
 
-## Usage ⚙️
-You can use this project for further developing it and adding your work in it. If you use this project, kindly mention the original source of the project and mention the link of this repo in your report.
+along with environmental parameters such as temperature, humidity, rainfall, and pH level. The system analyzes these inputs and recommends the most suitable crop for cultivation.
 
-## Further Improvements 📈
-This was my first big project so there are lot of things to improve upon
+🧪 Fertilizer Recommendation System
 
-- CSS code is totally messed up :pensive: (some code in file and some inline)
-- Frontend can be made more nicer (PS: I suck at frontend development) :cry:	
-- More data can be collected manually via web scrapping to make the system more accurate :monocle_face:	
-- Additional plant images can be collected to make the disease detection part more robust and generalized :face_with_head_bandage:
-- Modularized code can be written instead of writing in Jupyter Notebooks (will follow this in upcoming projects)
+Provide soil nutrient values and crop details to receive personalized fertilizer suggestions that help optimize crop growth and improve yield.
 
-## Credits 💳
-This project is heavily inspired from **[this GitHub repository](https://github.com/7NNS7/Recommendation-System-for-Farming)** (especially the crop recommendation and fertilizer recommendation part). This project is an extended version of the above mentioned project. Please star the mentioned repo.
+🍃 Plant Disease Detection
 
-## License 📝
-This project is licensed under [GNU (GENERAL PUBLIC LICENSE)](https://github.com/Gladiator07/Harvestify/blob/master/LICENSE).
+Upload a clear image of a plant leaf. The deep learning model will analyze the image and predict the disease affecting the crop, along with recommended precautions and treatment measures.
 
-## Contact 📞
+📍 Location Input Guidelines
 
-#### If you have any doubt or want to contribute feel free to email me or hit me up on [LinkedIn](https://www.linkedin.com/in/atharva-ingle-564430187/)
+The crop recommendation module uses real-time weather information from the OpenWeatherMap API.
+
+For accurate results:
+
+Use standard and commonly recognized city names.
+Avoid entering very small villages or remote locations that may not be available in the weather database.
+Verify spelling before submitting.
+⚠️ NPK Value Guidelines
+
+Ensure that the entered Nitrogen (N), Phosphorous (P), and Potassium (K) values accurately represent your soil test report.
+
+Correct nutrient values significantly improve recommendation accuracy for both crop and fertilizer prediction modules.
+
+🎥 Application Demonstrations
+🌾 Crop Recommendation
+<p align="center"> <img src="assets/demo/crop_recommendation.gif" alt="Crop Recommendation Demo" width="800"/> </p>
+🧪 Fertilizer Recommendation
+<p align="center"> <img src="assets/demo/fertilizer_recommendation.gif" alt="Fertilizer Recommendation Demo" width="800"/> </p>
+🍃 Disease Detection
+<p align="center"> <img src="assets/demo/disease_detection.gif" alt="Disease Detection Demo" width="800"/> </p>
+
+Replace the GIF paths above with your actual demo files or hosted links.
+
+📈 Future Enhancements
+
+The current version of CropEase provides a strong foundation for AI-powered smart farming. Future developments may include:
+
+🌿 Expanding disease detection to support more crops, pests, and plant disorders.
+🌍 Multi-language support for regional and local languages to improve accessibility for farmers.
+📊 Crop market price forecasting using machine learning and historical market trends.
+🛰️ Satellite and IoT-based farm monitoring for precision agriculture.
+🤖 AI-powered farming assistant for personalized agricultural guidance.
+☁️ Cloud deployment with user accounts and farm history tracking.
+📱 Dedicated Android and iOS applications for wider adoption.
+🙏 Credits & Acknowledgements
+
+This project was developed as part of an effort to leverage Artificial Intelligence and Machine Learning for modern agriculture.
+
+Special thanks to:
+
+⭐ Harvestify by Gladiator07 for inspiration and reference architecture.
+🎓 Krish Naik for educational resources and machine learning guidance.
+🌐 OpenWeatherMap API for real-time weather information.
+🧠 The open-source community for providing datasets, frameworks, and development tools that made this project possible.
+<div align="center">
+🌱 CropEase — Smart Agriculture Powered by AI
+
+Empowering farmers with intelligent crop recommendations, fertilizer suggestions, and disease detection solutions.
+
+</div> ```
