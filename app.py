@@ -13,6 +13,7 @@ import torch
 from torchvision import transforms
 from PIL import Image
 from utils.model import ResNet9
+import gc
 # ==============================================================================================
 
 # -------------------------LOADING THE TRAINED MODELS -----------------------------------------------
@@ -255,6 +256,9 @@ def disease_prediction():
             prediction = predict_image(img)
 
             prediction = Markup(str(disease_dic[prediction]))
+            # --- ADD THIS CLEANUP SECTION HERE ---
+            del img
+            gc.collect()
             return render_template('disease-result.html', prediction=prediction, title=title)
         except:
             pass
