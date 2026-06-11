@@ -1,25 +1,21 @@
 # Importing essential libraries and modules
-
-from flask import Flask, render_template, request, Markup, redirect
+import onnxruntime as ort  # Replaced torch imports with lightweight ONNX Runtime
 import numpy as np
 import pandas as pd
 from utils.disease import disease_dic
 from utils.fertilizer import fertilizer_dic
 import requests
-import config
+import os
 import pickle
 import io
-import torch
-from torchvision import transforms
 from PIL import Image
-from utils.model import ResNet9
-import gc
-# ==============================================================================================
+from flask import Flask, render_template, request, redirect
+from markupsafe import Markup
 
+# ==============================================================================================
 # -------------------------LOADING THE TRAINED MODELS -----------------------------------------------
 
-# Loading plant disease classification model
-
+# Loading plant disease classification classes
 disease_classes = ['Apple___Apple_scab',
                    'Apple___Black_rot',
                    'Apple___Cedar_apple_rust',
@@ -59,24 +55,17 @@ disease_classes = ['Apple___Apple_scab',
                    'Tomato___Tomato_mosaic_virus',
                    'Tomato___healthy']
 
-disease_model_path = 'models/plant_disease_model.pth'
-disease_model = ResNet9(3, len(disease_classes))
-disease_model.load_state_dict(torch.load(
-    disease_model_path, map_location=torch.device('cpu')))
-disease_model.eval()
-
+# Loading ONNX model runtime session instead of heavy PyTorch weights
+onnx_model_path = 'models/plant_disease_model.onnx'
+ort_session = ort.InferenceSession(onnx_model_path)
 
 # Loading crop recommendation model
-
 crop_recommendation_model_path = 'models/RandomForest.pkl'
 crop_recommendation_model = pickle.load(
     open(crop_recommendation_model_path, 'rb'))
 
-
 # =========================================================================================
-
 # Custom functions for calculations
-
 
 def weather_fetch(city_name):
     """
@@ -84,7 +73,10 @@ def weather_fetch(city_name):
     :params: city_name
     :return: temperature, humidity
     """
-    api_key = config.weather_api_key
+    api_key = os.environ.get('WEATHER_API_KEY')
+    if not api_key:
+        print("Error: WEATHER_API_KEY is not set.")
+        return None
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
 
     complete_url = base_url + "appid=" + api_key + "&q=" + city_name
@@ -102,72 +94,63 @@ def weather_fetch(city_name):
         return None
 
 
-def predict_image(img, model=disease_model):
+def predict_image(img):
     """
-    Transforms image to tensor and predicts disease label
-    :params: image
-    :return: prediction (string)
+    Transforms image to match PyTorch tensor formatting using NumPy and predicts via ONNX Runtime
     """
-    transform = transforms.Compose([
-        transforms.Resize(256),
-        transforms.ToTensor(),
-    ])
-    image = Image.open(io.BytesIO(img))
-    img_t = transform(image)
-    img_u = torch.unsqueeze(img_t, 0)
+    # 1. Open the image file bytes and format to RGB
+    image = Image.open(io.BytesIO(img)).convert('RGB')
+    
+    # 2. Resize to 256x256 (matches what your ResNet9 architecture expects)
+    image = image.resize((256, 256))
+    
+    # 3. Convert to a float32 array and normalize values between 0.0 and 1.0
+    img_np = np.array(image, dtype=np.float32) / 255.0
+    
+    # 4. Rearrange dimensions from HWC (Height, Width, Channels) to CHW (Channels, Height, Width)
+    img_np = np.transpose(img_np, (2, 0, 1))
+    
+    # 5. Add a batch dimension out front so shape becomes (1, 3, 256, 256)
+    img_np = np.expand_dims(img_np, axis=0)
 
-    # Get predictions from model
-    yb = model(img_u)
-    # Pick index with highest probability
-    _, preds = torch.max(yb, dim=1)
-    prediction = disease_classes[preds[0].item()]
-    # Retrieve the class label
+    # 6. Run inference through the lightweight ONNX session
+    ort_inputs = {ort_session.get_inputs()[0].name: img_np}
+    ort_outs = ort_session.run(None, ort_inputs)
+    
+    # 7. Extract the index with the highest probability value
+    preds = np.argmax(ort_outs[0], axis=1)
+    prediction = disease_classes[preds[0]]
+    
     return prediction
 
 # ===============================================================================================
 # ------------------------------------ FLASK APP -------------------------------------------------
 
-
 app = Flask(__name__)
 
 # render home page
-
-
-@ app.route('/')
+@app.route('/')
 def home():
     title = 'Cropify - Home'
     return render_template('index.html', title=title)
 
 # render crop recommendation form page
-
-
-@ app.route('/crop-recommend')
+@app.route('/crop-recommend')
 def crop_recommend():
     title = 'Cropify - Crop Recommendation'
     return render_template('crop.html', title=title)
 
 # render fertilizer recommendation form page
-
-
-@ app.route('/fertilizer')
+@app.route('/fertilizer')
 def fertilizer_recommendation():
     title = 'Cropify - Fertilizer Suggestion'
-
     return render_template('fertilizer.html', title=title)
 
-# render disease prediction input page
-
-
-
-
 # ===============================================================================================
-
 # RENDER PREDICTION PAGES
 
 # render crop recommendation result page
-
-
-@ app.route('/crop-predict', methods=['POST'])
+@app.route('/crop-predict', methods=['POST'])
 def crop_prediction():
     title = 'Cropify - Crop Recommendation'
 
@@ -177,8 +160,6 @@ def crop_prediction():
         K = int(request.form['pottasium'])
         ph = float(request.form['ph'])
         rainfall = float(request.form['rainfall'])
-
-        # state = request.form.get("stt")
         city = request.form.get("city")
 
         if weather_fetch(city) != None:
@@ -188,15 +169,11 @@ def crop_prediction():
             final_prediction = my_prediction[0]
 
             return render_template('crop-result.html', prediction=final_prediction, title=title)
-
         else:
-
             return render_template('try_again.html', title=title)
 
 # render fertilizer recommendation result page
-
-
-@ app.route('/fertilizer-predict', methods=['POST'])
+@app.route('/fertilizer-predict', methods=['POST'])
 def fert_recommend():
     title = 'Cropify - Fertilizer Suggestion'
 
@@ -204,7 +181,6 @@ def fert_recommend():
     N = int(request.form['nitrogen'])
     P = int(request.form['phosphorous'])
     K = int(request.form['pottasium'])
-    # ph = float(request.form['ph'])
 
     df = pd.read_csv('Data/fertilizer.csv')
 
@@ -234,12 +210,9 @@ def fert_recommend():
             key = "Klow"
 
     response = Markup(str(fertilizer_dic[key]))
-
     return render_template('fertilizer-result.html', recommendation=response, title=title)
 
 # render disease prediction result page
-
-
 @app.route('/disease-predict', methods=['GET', 'POST'])
 def disease_prediction():
     title = 'Cropify - Disease Detection'
@@ -252,18 +225,13 @@ def disease_prediction():
             return render_template('disease.html', title=title)
         try:
             img = file.read()
-
             prediction = predict_image(img)
-
             prediction = Markup(str(disease_dic[prediction]))
-            # --- ADD THIS CLEANUP SECTION HERE ---
-            del img
-            gc.collect()
             return render_template('disease-result.html', prediction=prediction, title=title)
-        except:
+        except Exception as e:
+            print(f"Prediction Error Logged: {e}")
             pass
     return render_template('disease.html', title=title)
-
 
 # ===============================================================================================
 if __name__ == '__main__':
